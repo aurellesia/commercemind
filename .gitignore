@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+backend/venv/
+.pytest_cache/
+.coverage*
+htmlcov/
+
+# Frontend
+node_modules/
+.svelte-kit/
+build/
+dist/
+
+# Environment and local secrets
+.env
+.env.*
+!.env.example
+.aws/
+
+# Local workspace and temporary files
+.agents/
+.codex
+tmp/
+.vscode/settings.json
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Local logs
+*.log

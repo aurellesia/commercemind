@@ -1,0 +1,6 @@
+Alembic migrations for the CommerceMind backend.
+
+Use these commands from the repository root:
+
+    alembic revision --autogenerate -m "message"
+    alembic upgrade head
