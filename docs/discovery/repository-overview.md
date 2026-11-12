@@ -1,8 +1,8 @@
-# Gambaran Repository CommerceMind
+# CommerceMind Repository Overview
 
 Laporan inspeksi struktur repository. Inspeksi ini hanya membaca file dan metadata yang tersedia; aplikasi, server, migrasi, tes, dan script tidak dijalankan.
 
-## 1. Gambaran Repository
+## 1. Repository Overview
 
 ```text
 .
@@ -36,7 +36,7 @@ Laporan inspeksi struktur repository. Inspeksi ini hanya membaca file dan metada
 
 Folder backend dipisahkan berdasarkan jenis modul, sedangkan route dan library frontend berada di bawah `frontend/src/`. Repository juga memiliki folder migrasi database, dokumentasi, dan beberapa script di `tmp/`. Tujuan tiap script `tmp/` belum dipastikan karena isi script tidak ditinjau.
 
-## 2. Teknologi yang Digunakan
+## 2. Technologies Used
 
 - Bahasa yang terkonfirmasi dari file: Python (`.py`), TypeScript (`.ts`), Svelte (`.svelte`), JavaScript untuk konfigurasi, CSS, HTML, YAML, TOML, dan JSON.
 - Backend memakai FastAPI, SQLAlchemy, Alembic, dan pytest, sebagaimana tercantum di `backend/pyproject.toml` dan `backend/requirements.txt`.
@@ -46,7 +46,7 @@ Folder backend dipisahkan berdasarkan jenis modul, sedangkan route dan library f
 - PostgreSQL 15 didefinisikan sebagai layanan database lokal di `docker-compose.yml`; Alembic digunakan untuk migrasi.
 - Versi beberapa dependensi backend tidak dipatok secara spesifik dalam manifest.
 
-## 3. Konfigurasi
+## 3. Configuration
 
 - `backend/pyproject.toml`: metadata paket Python dan daftar dependensi.
 - `backend/requirements.txt`: daftar paket Python.
@@ -63,26 +63,26 @@ Folder backend dipisahkan berdasarkan jenis modul, sedangkan route dan library f
 
 README mencantumkan perintah `docker-compose up -d`, penerapan migrasi dengan Alembic, backend dengan Uvicorn, dan frontend dengan `npm run dev`. Nilai kredensial yang ada pada konfigurasi tidak disertakan dalam laporan ini.
 
-## 4. Dokumentasi yang Ada
+## 4. Existing Documentation
 
 - `README.md`: ringkasan proyek dan petunjuk setup database, backend, frontend, serta contoh API produk.
 - `frontend/README.md`: panduan template standar Svelte untuk pengembangan dan build.
-- `docs/architecture_notes.md`: catatan identitas dan arsitektur proyek.
-- `docs/todo_customer_architecture.md`: dokumen perencanaan domain customer.
-- `docs/todo_inventory_architecture.md`: dokumen perencanaan inventory.
-- `docs/todo_platform_console_architecture.md`: dokumen perencanaan Platform Console.
-- `docs/todo_products_architecture.md`: dokumen perencanaan produk.
-- `docs/todo_storefront_catalog_architecture.md`: dokumen perencanaan katalog storefront.
+- `docs/architecture/architecture_notes.md`: catatan identitas dan arsitektur proyek.
+- `docs/archive/initial-planning/todo_customer_architecture.md`: dokumen perencanaan domain customer.
+- `docs/archive/initial-planning/todo_inventory_architecture.md`: dokumen perencanaan inventory.
+- `docs/archive/initial-planning/todo_platform_console_architecture.md`: dokumen perencanaan Platform Console.
+- `docs/archive/initial-planning/todo_products_architecture.md`: dokumen perencanaan produk.
+- `docs/archive/initial-planning/todo_storefront_catalog_architecture.md`: dokumen perencanaan katalog storefront.
 - `backlog.md`: backlog proyek.
 - `migrations/README`: petunjuk umum penggunaan Alembic.
 
 Struktur contoh di `README.md` menyebut `backend/models.py` dan `backend/crud.py`, sedangkan struktur yang ditemukan menggunakan direktori `backend/models/` dan `backend/crud/`.
 
-## 5. Kondisi Git
+## 5. Git Status
 
 Perintah Git untuk memeriksa status, branch, dan commit terakhir gagal dengan pesan bahwa direktori ini bukan repository Git. Direktori `.git` ditemukan, tetapi kosong saat diperiksa. Karena itu, branch aktif, status working tree, dan commit terakhir belum diketahui.
 
-## 6. Temuan Awal
+## 6. Initial Findings
 
 - Struktur repository memisahkan frontend, backend, migrasi, dokumentasi, dan script sementara.
 - Manifest mengonfirmasi teknologi utama yang disebut di bagian 2. Inspeksi ini tidak menilai status implementasi fitur.

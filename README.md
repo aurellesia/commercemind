@@ -22,7 +22,8 @@ This is a simple ecommerce project with a FastAPI backend, PostgreSQL database, 
 │   └── requirements.txt
 ├── frontend/
 ├── docs/
-│   └── architecture_notes.md
+│   └── architecture/
+│       └── architecture_notes.md
 ├── docker-compose.yml
 └── README.md
 ```
@@ -136,4 +137,4 @@ npm run dev
 
 - Backend schema is managed with Alembic migrations.
 - Keep backend API settings in an `.env` file once configuration grows.
-- See `docs/architecture_notes.md` for architecture notes.
+- See `docs/architecture/architecture_notes.md` for architecture notes.
