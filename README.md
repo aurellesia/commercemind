@@ -22,8 +22,27 @@ This is a simple ecommerce project with a FastAPI backend, PostgreSQL database, 
 │   └── requirements.txt
 ├── frontend/
 ├── docs/
-│   └── architecture/
-│       └── architecture_notes.md
+│   ├── README.md
+│   ├── architecture/
+│   │   └── architecture_notes.md
+│   ├── archive/
+│   │   └── initial-planning/
+│   │       ├── todo_customer_architecture.md
+│   │       ├── todo_inventory_architecture.md
+│   │       ├── todo_platform_console_architecture.md
+│   │       ├── todo_products_architecture.md
+│   │       └── todo_storefront_catalog_architecture.md
+│   ├── discovery/
+│   │   ├── existing-modules.md
+│   │   ├── module-dependencies.md
+│   │   ├── repository-overview.md
+│   │   ├── run-assessment.md
+│   │   └── testing-assessment.md
+│   ├── product/
+│   │   └── features-tree.md
+│   └── quality/
+│       └── risk-review/
+│           └── order-creation-flow.md
 ├── docker-compose.yml
 └── README.md
 ```

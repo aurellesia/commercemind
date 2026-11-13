@@ -1,4 +1,4 @@
-# TASK 6.1 — Order Creation Flow
+# Order Creation Flow
 
 ## 1. Flow Overview
 

@@ -1,4 +1,4 @@
-# TASK 2 — Run & Assess Application
+# Application Run Assessment
 
 **Waktu evaluasi:** 21 Oktober 2026, 18:46 WIB (Asia/Jakarta)
 
