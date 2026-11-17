@@ -14,6 +14,8 @@ Dokumen mencakup feature yang bermakna bagi UMKM. Dokumen tidak dimaksudkan seba
 - **Product Vision:** Business Operations & Intelligence Partner for UMKM.
 - **Product Positioning:** platform bisnis adaptif yang menggabungkan pengelolaan operasi bisnis dengan AI Business Partner.
 
+Produk melayani dua kelompok pengguna: pengguna eksternal (Business Owners, Business Staff, dan End Customers) serta internal operator CommerceMind (Platform Owner, Platform Administrator, Customer Support, dan Technical Operator). Pengguna internal mengoperasikan platform melalui Platform Admin Console, bukan melalui Business Workspace; role internal merupakan model awal dan bukan permission matrix final.
+
 CommerceMind membantu pemilik bisnis menjalankan dan mengelola usaha, memahami kondisinya, mengenali masalah dan peluang, mengeksplorasi solusi, mengambil keputusan berdasarkan informasi, serta menerapkan keputusan melalui kapabilitas operasional. Dalam proses tersebut, CommerceMind juga membantu pemilik mengembangkan kemampuan untuk memahami dan mengelola bisnisnya secara mandiri.
 
 CommerceMind bukan sekadar accounting app, business dashboard, inventory system, ecommerce platform, chatbot, atau AI report generator. Produk mengintegrasikan kapabilitas operasional dengan business intelligence yang memahami konteks.
@@ -75,7 +77,7 @@ Business Operations Platform merupakan sumber utama data operasional. AI Partner
 
 ## 5. Product Architecture Overview
 
-CommerceMind memiliki **tepat dua primary pillars**. Cross-Pillar Capabilities adalah fondasi bersama, bukan pillar produk ketiga.
+CommerceMind memiliki **tepat dua primary product pillars**: Business Operations Platform dan AI Business Partner. Platform Administration & Operations adalah capability group internal untuk mengoperasikan CommerceMind, bukan product pillar ketiga yang digunakan business customer. Cross-Pillar Capabilities adalah fondasi bersama, bukan product pillar.
 
 ```text
 CommerceMind
@@ -112,6 +114,15 @@ CommerceMind
 │   ├── AI Action & Workflow Assistance
 │   ├── Decision and Outcome Evaluation
 │   └── Continuous Business Adaptation
+├── Platform Administration & Operations
+│   ├── Platform Admin Console
+│   ├── Internal Identity & Access Management
+│   ├── Workspace and User Account Administration
+│   ├── Subscription and Plan Administration
+│   ├── Platform Configuration and Monitoring
+│   ├── AI Operations
+│   ├── Support and Incident Management
+│   └── Audit and Data Maintenance
 └── Cross-Pillar Capabilities
     ├── Business Data Foundation
     ├── Data Integration
@@ -127,13 +138,13 @@ CommerceMind
 
 ### Feature ID Convention
 
-Target-state Feature ID menggunakan prefix `CM-BO-XXX` untuk Business Operations Platform, `CM-AI-XXX` untuk AI Business Partner, dan `CM-CP-XXX` untuk Cross-Pillar Capabilities. Nomor berurutan dalam masing-masing prefix. Subfeature menggunakan referensi hierarkis, misalnya `CM-BO-007.1`, dan bukan Feature ID mandiri.
+Target-state Feature ID menggunakan prefix `CM-BO-XXX` untuk Business Operations Platform, `CM-AI-XXX` untuk AI Business Partner, `CM-PA-XXX` untuk Platform Administration & Operations, dan `CM-CP-XXX` untuk Cross-Pillar Capabilities. Nomor berurutan dalam masing-masing prefix. Subfeature menggunakan referensi hierarkis, misalnya `CM-BO-007.1`, dan bukan Feature ID mandiri.
 
-Feature ID yang sudah ada pada Features Tree sebelumnya tetap dicatat verbatim sebagai **Legacy ID** dalam crosswalk di bagian 15. ID tersebut tidak digunakan ulang. ID target-state baru adalah ID kanonis pada peta ini; crosswalk menjaga keterlacakan tanpa menghilangkan keputusan atau status lama.
+Feature ID yang sudah ada pada Features Tree sebelumnya tetap dicatat verbatim sebagai **Legacy ID** dalam crosswalk pada bagian Feature Change Management. ID tersebut tidak digunakan ulang. ID target-state baru adalah ID kanonis pada peta ini; crosswalk menjaga keterlacakan tanpa menghilangkan keputusan atau status lama.
 
 ### How to Read the Feature Tree
 
-Pohon di bagian 6–8 menunjukkan hirarki domain, feature, dan subfeature. Metadata table mencatat Parent Domain, tanggung jawab dan user value, Capability Type, relasi, Product Decision Status, Implementation Status, serta Legacy ID jika ada.
+Pohon di bagian 6–9 menunjukkan hirarki domain, feature, dan subfeature. Metadata table mencatat Parent Domain, tanggung jawab dan user value, Capability Type, relasi, Product Decision Status, Implementation Status, serta Legacy ID jika ada.
 
 ## 6. Business Operations Platform
 
@@ -476,7 +487,105 @@ Cross-Pillar Capabilities menyediakan fondasi bersama bagi Business Operations P
 | CM-CP-009 | Reliability & Recovery | Reliability & Recovery | Mendukung operasi yang andal, deteksi kegagalan, dan pemulihan. | Pemilik menghadapi risiko kehilangan data atau gangguan operasi yang lebih rendah. | Core | CM-CP-001, CM-CP-002, CM-CP-005 | Under Review | Unknown — target reliability/recovery tidak dinilai dalam Discovery ini. | — |
 | CM-CP-010 | AI Governance and Safety | AI Governance and Safety | Menetapkan batas keselamatan, transparansi, evaluasi, dan human approval AI. | Pemilik dapat memakai bantuan AI dengan pemahaman dan kendali yang sesuai. | Core | CM-AI-009, CM-AI-015, CM-AI-017, CM-CP-006 | Under Review | Not Implemented — AI Business Partner tidak ditemukan pada area yang diperiksa; governance khusus AI juga tidak ditemukan. | — |
 
-## 9. Feature Relationship Map
+## 9. Platform Administration & Operations
+
+Grup ini mencakup kapabilitas internal untuk mengoperasikan, memantau, memelihara, dan mendukung CommerceMind sebagai platform multi-tenant. Grup ini bukan business-facing pillar dan tidak dicampur ke Business Workspace.
+
+### 9.1 Platform Admin Console
+
+**Platform Admin Console** adalah interface khusus bagi internal operator untuk mengelola dan memantau platform. Ini merupakan batas interface dan akses yang berbeda dari Business Workspace; belum ditetapkan apakah implementasinya memerlukan codebase atau deployment terpisah.
+
+Pengguna internal awal yang menjadi model konseptual:
+
+| Role | Responsibility |
+|---|---|
+| Platform Owner | Kepemilikan platform, governance, dan kewenangan administrasi tertinggi. Akses ke data sensitif tetap mengikuti kebijakan dan audit yang eksplisit. |
+| Platform Administrator | Administrasi rutin platform, workspace, akun, konfigurasi, dan subscription sesuai permission. |
+| Customer Support | Menangani support request dan melakukan inspection workspace/akun yang diizinkan. Akses otomatis ke data finansial atau data customer sensitif tidak diasumsikan. |
+| Technical Operator | Monitoring, maintenance, dan penanganan technical incident. Akses otomatis ke data operasional bisnis tidak diasumsikan. |
+
+Role tersebut adalah model awal, bukan permission matrix final. Terapkan least privilege dan bedakan platform-level permission dari business-level permission. Permission rinci yang belum diputuskan berstatus `TBD`.
+
+### 9.2 Platform Administration Feature Tree
+
+- **Platform Admin Console**
+  - `CM-PA-001` Platform Admin Console
+    - `CM-PA-001.1` Menyediakan interface internal yang terpisah dari Business Workspace.
+    - `CM-PA-001.2` Menyediakan akses ke area administrasi sesuai role dan permission.
+- **Platform Dashboard**
+  - `CM-PA-002` Platform Overview & Usage Dashboard
+    - `CM-PA-002.1` Merangkum statistik workspace dan user.
+    - `CM-PA-002.2` Menampilkan ringkasan activity dan operational health platform.
+- **Internal Identity & Access Management**
+  - `CM-PA-003` Internal Operator Identity & Access Management
+    - `CM-PA-003.1` Mengelola internal account, authentication, dan session.
+    - `CM-PA-003.2` Mengatur platform role, permission, dan access control dengan least privilege.
+- **Workspace Administration**
+  - `CM-PA-004` Business Workspace Administration
+    - `CM-PA-004.1` Mencari dan memeriksa registered workspace serta ownership.
+    - `CM-PA-004.2` Mengelola activation, suspension, reactivation, dan deactivation workspace.
+- **User & Account Administration**
+  - `CM-PA-005` User Account Administration
+    - `CM-PA-005.1` Memeriksa account status dan relasi account-to-workspace.
+    - `CM-PA-005.2` Membantu account recovery dan mengelola suspension/reactivation.
+- **Subscription & Plan Management**
+  - `CM-PA-006` Subscription & Plan Administration
+    - `CM-PA-006.1` Mengelola subscription plan dan assignment ke workspace.
+    - `CM-PA-006.2` Mengelola status dan lifecycle subscription.
+- **Platform Configuration**
+  - `CM-PA-007` Global Platform Configuration
+    - `CM-PA-007.1` Mengelola global settings, feature configuration, dan service configuration.
+    - `CM-PA-007.2` Menampilkan environment configuration yang aman tanpa secrets atau credentials.
+- **System Monitoring & Health**
+  - `CM-PA-008` Platform System Monitoring & Health
+    - `CM-PA-008.1` Memantau service, database, dan external service health.
+    - `CM-PA-008.2` Memantau background jobs, application errors, dan resource usage.
+- **AI Operations & Cost Management**
+  - `CM-PA-009` AI Operations & Cost Management
+    - `CM-PA-009.1` Mengelola provider/model configuration dan AI service health.
+    - `CM-PA-009.2` Memantau AI usage/cost per platform dan workspace serta mengelola usage limits.
+- **Support & Issue Management**
+  - `CM-PA-010` Support Request & Case Management
+    - `CM-PA-010.1` Mencatat, mengklasifikasikan, dan melacak support case.
+    - `CM-PA-010.2` Mencatat support activity dan resolution.
+- **Audit & Activity Management**
+  - `CM-PA-011` Platform Audit & Activity Management
+    - `CM-PA-011.1` Mencatat internal operator activity dan administrative action.
+    - `CM-PA-011.2` Mencari workspace/account activity dan mengelola audit retention.
+- **Incident Management**
+  - `CM-PA-012` Platform Incident Management
+    - `CM-PA-012.1` Mencatat, mengklasifikasikan, dan mengelola status incident.
+    - `CM-PA-012.2` Melacak resolution, history, dan incident communication.
+- **Data Management & Maintenance**
+  - `CM-PA-013` Platform Data Management & Maintenance
+    - `CM-PA-013.1` Memantau backup dan mengelola restoration serta retention.
+    - `CM-PA-013.2` Mengelola data export/deletion dan platform maintenance dengan authorization serta audit.
+
+Payment processing, billing automation, dan revenue management tidak dianggap tercakup oleh subscription administration; kapabilitas tersebut memerlukan definisi terpisah bila kelak menjadi scope.
+
+### 9.3 Platform Administration Feature Metadata
+
+Semua feature pada grup ini berstatus keputusan `Under Review`. Status implementasi `Unknown` karena dokumentasi discovery yang dirujuk belum memetakan kapabilitas internal platform ini secara cukup rinci. Status tersebut tidak menyatakan bahwa implementasi pasti tidak ada.
+
+| Feature ID | Feature Name | Parent Domain | Description | User Value | Capability Type | Related Features | Decision | Implementation | Legacy ID |
+|---|---|---|---|---|---|---|---|---|---|
+| CM-PA-001 | Platform Admin Console | Platform Admin Console | Menyediakan interface internal dan access boundary untuk mengoperasikan CommerceMind. | Operator internal dapat mengelola platform tanpa menggunakan Business Workspace. | Core | CM-PA-003, CM-CP-006 | Under Review | Unknown | — |
+| CM-PA-002 | Platform Overview & Usage Dashboard | Platform Dashboard | Merangkum penggunaan, jumlah workspace/user, activity, dan operational health. | Internal operator mendapat gambaran kondisi platform. | Core | CM-PA-004, CM-PA-005, CM-PA-008, CM-PA-011 | Under Review | Unknown | — |
+| CM-PA-003 | Internal Operator Identity & Access Management | Internal Identity & Access Management | Mengelola identitas, session, role, permission, dan akses internal. | Akses operator dapat dibatasi sesuai tanggung jawab. | Core | CM-PA-001, CM-PA-011, CM-CP-006, CM-CP-008 | Under Review | Unknown | — |
+| CM-PA-004 | Business Workspace Administration | Workspace Administration | Memeriksa dan mengelola status serta ownership workspace terdaftar. | Platform operator dapat menangani administrasi workspace secara terkendali. | Core | CM-PA-002, CM-PA-005, CM-PA-011, CM-CP-007 | Under Review | Unknown | — |
+| CM-PA-005 | User Account Administration | User & Account Administration | Memeriksa status dan relasi account/workspace serta membantu recovery account. | Account issue dapat ditangani tanpa menyamakan account suspension dengan workspace suspension. | Core | CM-PA-002, CM-PA-004, CM-PA-010, CM-CP-006 | Under Review | Unknown | — |
+| CM-PA-006 | Subscription & Plan Administration | Subscription & Plan Management | Mengelola plan, assignment, status, dan lifecycle subscription workspace. | Status subscription dapat ditinjau dan dikelola. | Optional | CM-PA-004, CM-PA-007, CM-PA-011 | Under Review | Unknown | — |
+| CM-PA-007 | Global Platform Configuration | Platform Configuration | Mengelola platform settings dan konfigurasi tanpa mengekspos secrets/credentials. | Perubahan konfigurasi internal dapat dikendalikan tanpa membocorkan nilai sensitif. | Core | CM-PA-001, CM-PA-008, CM-PA-009, CM-PA-011, CM-CP-006 | Under Review | Unknown | — |
+| CM-PA-008 | Platform System Monitoring & Health | System Monitoring & Health | Memantau service, data store, integrations, jobs, errors, dan resource platform. | Technical operator dapat mengenali kondisi layanan yang memerlukan perhatian. | Core | CM-PA-002, CM-PA-012, CM-PA-013, CM-CP-009 | Under Review | Unknown | — |
+| CM-PA-009 | AI Operations & Cost Management | AI Operations & Cost Management | Mengelola konfigurasi AI dan memantau health, usage, cost, serta limits. | Penggunaan layanan AI dapat ditinjau pada tingkat platform dan workspace. | Optional | CM-PA-007, CM-PA-008, CM-PA-011, CM-CP-010 | Under Review | Unknown | — |
+| CM-PA-010 | Support Request & Case Management | Support & Issue Management | Mengelola request, classification, activity, dan resolution support case. | Customer Support dapat menangani dan menelusuri penyelesaian masalah. | Core | CM-PA-004, CM-PA-005, CM-PA-011 | Under Review | Unknown | — |
+| CM-PA-011 | Platform Audit & Activity Management | Audit & Activity Management | Menelusuri aktivitas internal, administrative action, serta aktivitas workspace/account dengan retention yang ditentukan. | Tindakan administratif sensitif dapat diaudit. | Core | CM-PA-003, CM-PA-004, CM-PA-005, CM-PA-006, CM-PA-007, CM-PA-010, CM-PA-012, CM-PA-013, CM-CP-008 | Under Review | Unknown | — |
+| CM-PA-012 | Platform Incident Management | Incident Management | Mencatat, mengklasifikasikan, mengomunikasikan, dan meninjau penyelesaian incident platform. | Incident dapat ditangani dengan status dan riwayat yang dapat ditelusuri. | Core | CM-PA-008, CM-PA-010, CM-PA-011, CM-CP-004, CM-CP-009 | Under Review | Unknown | — |
+| CM-PA-013 | Platform Data Management & Maintenance | Data Management & Maintenance | Mengawasi backup, restoration, retention, export, deletion, dan maintenance platform. | Operasi pemeliharaan data dapat dilakukan secara terkontrol. | Core | CM-PA-007, CM-PA-008, CM-PA-011, CM-CP-006, CM-CP-008, CM-CP-009 | Under Review | Unknown | — |
+
+Operasi destructive atau sensitif dalam capability group ini memerlukan authorization eksplisit dan audit record. Detail kebijakan akses, retention, approval, dan batas akses internal yang belum ditentukan berstatus `TBD`. Customer Support tidak otomatis memperoleh akses ke data finansial bisnis atau data customer sensitif; Technical Operator tidak otomatis memperoleh akses ke data operasional bisnis.
+
+## 10. Feature Relationship Map
 
 Relasi berikut adalah relasi fungsional dan data target-state, bukan klaim bahwa integrasi teknis sudah tersedia. Tidak semua relasi merupakan dependency wajib; bisnis dapat memakai kapabilitas sesuai modelnya.
 
@@ -503,6 +612,12 @@ flowchart LR
     Decision[Decision Support]
     Action[Action Assistance]
     Evaluation[Outcome Evaluation]
+  end
+  subgraph Platform[Platform Administration and Operations]
+    Console[Platform Admin Console]
+    WorkspaceAdmin[Workspace and Account Administration]
+    PlatformOps[Platform Monitoring and Operations]
+    PlatformAudit[Platform Audit]
   end
   subgraph Foundation[Cross-Pillar Capabilities]
     Data[Business Data Foundation]
@@ -532,6 +647,9 @@ flowchart LR
   Action --> Evaluation
   Evaluation --> Growth
   Evaluation --> Context
+  Console --> WorkspaceAdmin
+  Console --> PlatformOps
+  Console --> PlatformAudit
 ```
 
 ### Relationship Types
@@ -541,9 +659,9 @@ flowchart LR
 - **Operational dependency:** sebuah workflow memerlukan operasi sebelumnya, seperti order yang memerlukan validasi inventory.
 - **Optional integration:** capability dapat terhubung bila bisnis mengaktifkan channel/provider terkait; bukan dependency bagi semua bisnis.
 
-Contoh: Sales Order Management berhubungan secara operasional dengan Customer, Product, Inventory, Payment, dan Fulfillment. AI Business Partner menggunakan data yang relevan melalui Business Data Foundation; rekomendasi dapat mengarah ke kapabilitas Operations, tetapi pelaksanaan aksi memerlukan otorisasi yang sesuai.
+Contoh: Sales Order Management berhubungan secara operasional dengan Customer, Product, Inventory, Payment, dan Fulfillment. AI Business Partner menggunakan data yang relevan melalui Business Data Foundation; rekomendasi dapat mengarah ke kapabilitas Operations, tetapi pelaksanaan aksi memerlukan otorisasi yang sesuai. Platform Administration & Operations mengelola dan memantau CommerceMind melalui Platform Admin Console, dengan akses ke workspace dan data dibatasi oleh role, permission, dan audit policy yang belum dirinci.
 
-## 10. Capability Type Definitions
+## 11. Capability Type Definitions
 
 - **Core:** kapabilitas fundamental yang diharapkan relevan bagi sebagian besar bisnis dalam konteks domain tersebut.
 - **Optional:** kapabilitas yang digunakan bila sesuai model bisnis, channel, atau kebutuhan operasional.
@@ -551,7 +669,7 @@ Contoh: Sales Order Management berhubungan secara operasional dengan Customer, P
 
 Capability Type tidak menyatakan prioritas implementasi, Product Decision Status, atau Implementation Status.
 
-## 11. Product Decision Status Definitions
+## 12. Product Decision Status Definitions
 
 - **Approved:** secara eksplisit diputuskan menjadi bagian committed scope.
 - **Under Review:** sedang dievaluasi dan belum menjadi komitmen scope.
@@ -560,7 +678,7 @@ Capability Type tidak menyatakan prioritas implementasi, Product Decision Status
 
 Semua kapabilitas pada target-state map saat ini berstatus `Under Review`, kecuali terdapat keputusan produk eksplisit yang kemudian dicatat di Change History. Kode, dokumentasi rencana, Capability Type, atau pencantuman dalam map bukan bukti `Approved`.
 
-## 12. Implementation Status Definitions
+## 13. Implementation Status Definitions
 
 - **Not Implemented:** implementasi tidak ditemukan pada area repository yang diperiksa.
 - **In Development:** ada bukti implementasi sedang dikerjakan.
@@ -570,7 +688,7 @@ Semua kapabilitas pada target-state map saat ini berstatus `Under Review`, kecua
 
 Implementation Status menggambarkan repository saat ini, bukan target-state. Status kapabilitas turunan AI yang tidak ditemukan dicatat `Not Implemented` berdasarkan Discovery yang tersedia. Kapabilitas baru yang belum dipetakan diberi `Unknown`, bukan diasumsikan tidak ada.
 
-## 13. Feature Change Management
+## 14. Feature Change Management
 
 ### Adding Features
 
@@ -629,19 +747,21 @@ Feature ID dari Features Tree sebelumnya dipertahankan sebagai Legacy ID berikut
 | CM-GAP-008 | Reporting Interface | CM-BO-033 | Under Review | Not Implemented — frontend report UI tidak ditemukan; API backend dipetakan ke CM-BO-033. |
 | CM-GAP-009 | AI Partner (legacy umbrella) | CM-AI-001–CM-AI-017 | Under Review | Not Implemented — AI Partner tidak ditemukan pada route/frontend/API/backend yang diperiksa. |
 
-## 14. Change History
+## 15. Change History
 
 | Date | Feature ID / Section | Change Type | Description | Reason |
 |---|---|---|---|---|
 | 2026-11-12 | Previous Features Tree | Establish living scope | Inventaris Discovery disusun menjadi living scope; 24 Legacy ID dan statusnya dicatat pada crosswalk. | Memisahkan keputusan produk dari kondisi implementasi. |
 | 2026-11-13 | Entire document | Expand to target-state capability map | Menambahkan dua primary pillars, 41 domain, 65 target features, 130 subfeatures, metadata, relationship map, dan cross-pillar foundations. Seluruh keputusan target-state berstatus `Under Review`; status implementasi memakai bukti Discovery atau `Unknown`. | Menggambarkan potensi lengkap CommerceMind tanpa menganggap pencantuman sebagai persetujuan untuk membangun. |
+| 2026-11-17 | Platform Administration & Operations | Add internal platform capability group | Menambahkan 13 target feature internal, model role awal, dan definisi Platform Admin Console. Seluruh feature berstatus `Under Review` dengan implementation `Unknown`. | Mencatat kebutuhan internal untuk mengoperasikan CommerceMind sebagai platform multi-tenant tanpa mencampurnya dengan Business Workspace. |
 
-## 15. Scope and Documentation Notes
+## 16. Scope and Documentation Notes
 
 - Target-state map ini menggambarkan ruang kapabilitas potensial berdasarkan visi CommerceMind sebagai Business Operations & Intelligence Partner for UMKM. Pencantuman feature **bukan** persetujuan scope atau komitmen implementasi.
 - Tepat dua primary pillars adalah Business Operations Platform dan AI Business Partner. Cross-Pillar Capabilities adalah fondasi yang dipakai bersama dan bukan pillar ketiga.
+- Platform Administration & Operations adalah capability group internal, bukan business-facing product pillar dan bukan bagian Business Workspace. Platform Admin Console adalah interface dan access boundary yang berbeda; codebase/deployment terpisah belum diputuskan.
 - Seluruh target feature menggunakan `Under Review` karena sumber yang diperiksa tidak memberi keputusan eksplisit untuk mengesahkan target-state yang diperluas ini. Keputusan product owner dapat mengubah status melalui Change History.
-- Feature ID kanonis baru menggunakan prefix `CM-BO`, `CM-AI`, dan `CM-CP`. Seluruh 24 ID sebelumnya dipertahankan sebagai Legacy ID pada crosswalk; pemetaan split ditampilkan secara eksplisit dan ID tidak digunakan ulang.
+- Feature ID kanonis menggunakan prefix `CM-BO`, `CM-AI`, `CM-PA`, dan `CM-CP`. Seluruh 24 ID sebelumnya dipertahankan sebagai Legacy ID pada crosswalk; pemetaan split ditampilkan secara eksplisit dan ID tidak digunakan ulang.
 - Implementation Status adalah snapshot berdasarkan Discovery: `docs/discovery/existing-modules.md`, `docs/discovery/module-dependencies.md`, `docs/discovery/testing-assessment.md`, `docs/architecture/architecture_notes.md`, serta `docs/quality/risk-review/order-creation-flow.md`. Status bukan hasil audit ulang semua source code atau verifikasi runtime.
 - `Unknown` dipakai ketika implementasi capability baru belum dipetakan. `Not Implemented` hanya dipakai untuk area yang secara eksplisit tidak ditemukan pada Discovery yang dirujuk.
 - Beberapa area berdekatan tetapi memiliki ownership berbeda: Business Reporting menyajikan laporan operasional, sedangkan AI Insights menafsirkan bukti dan ketidakpastian; Automation Infrastructure mendukung eksekusi lintas domain, sedangkan Business Process Automation adalah capability yang dikonfigurasi pengguna; Payment Records berbeda dari Payment Provider Integration.
