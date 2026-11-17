@@ -136,6 +136,17 @@ CommerceMind
     └── AI Governance and Safety
 ```
 
+### Actor Perspectives
+
+Empat perspektif pengguna berikut membantu membaca tanggung jawab capability, tetapi tidak menambah product pillar:
+
+| Actor Perspective | Capability Area |
+|---|---|
+| Administrator | Internal CommerceMind roles (Platform Owner, Platform Administrator, Customer Support, Technical Operator) menggunakan Platform Administration & Operations melalui Platform Admin Console. Akses mengikuti least privilege dan policy yang berlaku. |
+| AI Business Partner | Menjalankan analisis, discovery, insight, decision support, action assistance, dan evaluasi di bawah pillar AI Business Partner. AI bukan pengambil keputusan bisnis. |
+| Business Owner | Memiliki konteks dan keputusan bisnis; menggunakan Business Operations Platform serta dapat meminta dan meninjau bantuan AI. |
+| Customer | Menggunakan capability customer-facing di Business Operations Platform, termasuk Storefront, Customer Account, Cart, Checkout, Order, Payment, dan Shipping/Tracking jika tersedia. |
+
 ### Feature ID Convention
 
 Target-state Feature ID menggunakan prefix `CM-BO-XXX` untuk Business Operations Platform, `CM-AI-XXX` untuk AI Business Partner, `CM-PA-XXX` untuk Platform Administration & Operations, dan `CM-CP-XXX` untuk Cross-Pillar Capabilities. Nomor berurutan dalam masing-masing prefix. Subfeature menggunakan referensi hierarkis, misalnya `CM-BO-007.1`, dan bukan Feature ID mandiri.
